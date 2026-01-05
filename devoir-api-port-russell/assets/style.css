@@ -1,0 +1,28 @@
+body{
+    display: flex;
+    max-width: 750px;
+    max-height: 750px;
+}
+
+.container{
+    width: 100%;
+    border: 1px solid #a2d5c6;
+    border-radius: 10px;
+    background-color: #a2d5c6;
+}
+
+legend{
+    color: #FAD2CF;
+    border: 1px solid white;
+    border-radius: 10px;
+    background-color: white;
+    padding: 5px;
+}
+
+span{
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    color: #a2d5c6;
+    
+}
