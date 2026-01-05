@@ -5,15 +5,19 @@ const cors = require('cors')
 
 
 const indexRouter = require('./routes/index');
-const fileRouter = require('./routes/files')
+
 const mongodb = require('./db/mongo');
-const userRouter = require('./routes/users')
+const userRouter = require('./routes/users');
+const catwayRouter = require('./routes/catways');
+const reservationRouter = require('./routes/reservations');
 
 const path = require('path');
 
 mongodb.initClientDbConnection();
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -27,13 +31,13 @@ app.use(cors({
   origin: '*'
 }));
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
-app.use('/files', fileRouter);
-app.use('/users', userRouter)
+
+app.use('/users', userRouter);
+app.use('/catways', catwayRouter);
+app.use('/reservations', reservationRouter);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'assets')));
 

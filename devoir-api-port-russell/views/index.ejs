@@ -9,23 +9,24 @@
 </head>
 <body>
     <span class="material-symbols-outlined">anchor</span>
-
-    <form method="POST" action="/files" enctype="multipart/form-data">
+    
+    <form method="POST" action="/users/login">
         <fieldset class="container">
             <legend>Accueil Port Russel</legend><br>
             
-            <label for="description">Description de l'image</label>
-            <input type="text" name="description"> <br><br>
+            <label for="username">Nom Utilisateur</label>
+            <input type="username" name="username" id="username" required> <br><br>
 
             <label for="email">Votre Email</label>
             <input type="email" name="email" id="email" required> <br><br>
 
-            <label for="description">Description de l'image</label>
-            <input type="text" name="description"> <br><br>
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="password" required> <br><br>
 
             <input type="submit" value="connexion">
-            <input type="submit" value="créer un compte">
+            
         </fieldset>
     </form>
+   
 </body>
 </html>
