@@ -2,24 +2,15 @@ const Catway = require('../models/catway');
 
 exports.add = async (req, res) => {
     try {
-        
-        if (Array.isArray(req.body)) {
-            
-            const newCatways = await Catway.insertMany(req.body);
-            return res.status(201).json({
-                message: `${newCatways.length} catways ont été ajoutés avec succès !`,
-                data: newCatways
-            });
-        } else {
-            
-            const catway = new Catway(req.body);
-            await catway.save();
-            return res.status(201).json(catway);
-        }
+        const catway = new Catway(req.body);
+        await catway.save();
+        res.status(201).json({
+            message: "Catway créé avec succès !",
+            data: catway
+        });
     } catch (error) {
-        
         res.status(400).json({ 
-            message: "Erreur lors de l'insertion", 
+            message: "Erreur lors de la création du catway", 
             error: error.message 
         });
     }
@@ -28,6 +19,9 @@ exports.add = async (req, res) => {
 exports.getAllCatways = (req, res) => {
     Catway.find()
         .then(catways => res.status(200).json(catways))
+        .then(catways => {
+            res.render('catways', { catways: catways });
+        })
         .catch(error => res.status(400).json({ error }));
 };
 

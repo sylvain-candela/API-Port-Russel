@@ -1,33 +1,27 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=anchor" />
-    <title>Port Russell</title>
+    <title>Document</title>
 </head>
 <body>
-    <span class="material-symbols-outlined">anchor</span>
-    
-    <form method="POST" action="/users/login">
+    <form method="POST" action="/users/signup">
         <fieldset class="container">
-            <legend>Accueil Port Russel</legend><br>
+                <legend>Inscription</legend><br>
             
             <label for="username">Nom Utilisateur</label>
             <input type="text" name="username" id="username" required> <br><br>
-
+    
             <label for="email">Votre Email</label>
             <input type="email" name="email" id="email" required> <br><br>
-
+    
             <label for="password">Mot de passe</label>
             <input type="password" name="password" id="password" required> <br><br>
-
-            <input type="submit" value="connexion">
-            <a href="/users/signup" >créer un compte</a>
-            
+            <input type="submit" value="Créer un compte">
         </fieldset>
     </form>
-   
+    
 </body>
 </html>

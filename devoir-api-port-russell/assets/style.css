@@ -1,5 +1,6 @@
 body{
-    display: flex;
+    display: grid;
+    justify-content: space-between;
     max-width: 750px;
     max-height: 750px;
 }
@@ -22,7 +23,6 @@ legend{
 span{
     display: flex;
     justify-content: center;
-    width: 50px;
-    color: #a2d5c6;
-    
+    color: #7d91b6;
+   
 }

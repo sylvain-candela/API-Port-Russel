@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/style.css">
+    <title>Gestion des Catways</title>
+</head>
+<body>
+    <h1>Tableau de bord des Catways</h1>
+
+    <a href="/catways/add" class="btn-add">Ajouter un Catway</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Numéro</th>
+                <th>Type</th>
+                <th>État</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% catways.forEach(catway => { %>
+                <tr>
+                    <td><%= catway.catwayNumber %></td>
+                    <td><%= catway.type %></td>
+                    <td><%= catway.catwayState %></td>
+                    <td>
+                        <a href="/catways/<%= catway._id %>">Voir</a>
+                        
+                        <form action="/catways/<%= catway._id %>?_method=DELETE" method="POST" style="display:inline;">
+                            <button type="submit" onclick="return confirm('Confirmer ?')"></button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</body>
+</html>

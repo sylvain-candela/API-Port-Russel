@@ -23,17 +23,16 @@ const User = new Schema({
     timestamps: true
 });
 
-// Dans models/user.js
-User.pre('save', async function() { // On enlève le "next" ici
+User.pre('save', async function() { 
     if (!this.isModified('password')) {
-        return; // Plus besoin de next()
+        return; 
     }
 
     try {
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);
     } catch (error) {
-        throw error; // Mongoose attrapera l'erreur tout seul
+        throw error;
     }
 });
 module.exports = mongoose.model('User', User);

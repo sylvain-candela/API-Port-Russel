@@ -2,20 +2,18 @@ const Reservation = require('../models/reservation');
 
 exports.add = async (req, res) => {
     try {
-        if (Array.isArray(req.body)) {
-            const newReservations = await Reservation.insertMany(req.body);
-            return res.status(201).json({
-                message: `${newReservations.length} reservations ont été ajoutées !`,
-                data: newReservations
-            });
-        } else {
-            const reservation = new Reservation(req.body);
-            await reservation.save();
-            return res.status(201).json(reservation);
-        }
+        
+        const reservation = new Reservation(req.body);
+        
+        await reservation.save();
+    
+        res.status(201).json({
+            message: "Reservation créé avec succès !",
+            data: reservation
+        });
     } catch (error) {
         res.status(400).json({ 
-            message: "Erreur lors de l'insertion", 
+            message: "Erreur lors de la création du reservation", 
             error: error.message 
         });
     }
@@ -27,7 +25,7 @@ exports.getAllReservations = (req, res) => {
         .catch(error => res.status(400).json({ error }));
 };
 
-exports.getByCatway = (req, res) => {
+exports.getByReservation = (req, res) => {
     Reservation.find({ catwayNumber: req.params.id })
         .then(reservations => res.status(200).json(reservations))
         .catch(error => res.status(400).json({ error }));

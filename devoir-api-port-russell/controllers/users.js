@@ -3,6 +3,26 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.SECRET_KEY
 
+
+exports.add = async (req, res) => {
+    try {
+        
+        const user = new User(req.body);
+        
+        await user.save();
+    
+        res.status(201).json({
+            message: "utilisateur créé avec succès !",
+            data: user
+        });
+    } catch (error) {
+        res.status(400).json({ 
+            message: "Erreur lors de la création de l'utilisateur", 
+            error: error.message 
+        });
+    }
+};
+
 exports.getById = async (req, res, next) => {
     const id = req.params.id
 
@@ -16,25 +36,6 @@ exports.getById = async (req, res, next) => {
         return res.status(404).json('user_not_found');
     } catch (error){
         return res.status(501).json (error);
-    }
-}
-
-exports.add = async (req,res, next) => {
-    
-    const temp = ({
-    name : req.body.name,
-    firstname : req.body.firstname,
-    email :req.body.email,
-    password :req.body.password
-    });
-
-    try {
-        let user = await User.create(temp);
-
-        return res.status(201).json(user);
-    } catch (error) {
-        console.log("Détail de l'erreur :", error);
-        return res.status(501).json(error);
     }
 }
 
@@ -115,39 +116,59 @@ exports.authenticate = async (req,res, next) => {
     }
 }
 
-exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
-    .then(hash => {
-        const user = new User ({
-            username: req.body.username,
-            email: req.body.email,
-            password: hash
-        });
-        user.save()
-        .then(() => res.status(201).json({message: 'Utilisateur créé'}))
-        .catch(error => res.status(400).json({ error }));
-    })
-    .catch(error => res.status(500).json ({ error }));
-}
 
-exports.login = (req,res, next) => {
-    User.findOne ({ email : req.body.email })
-    .then( user => {
-        if(user){
-            return res.status(401).json({ error: 'Utilisateur non trouvé'})
+exports.signup = (req, res, next) => {
+    
+    if (!req.body.password) {
+        return res.status(400).json({ error: "Le mot de passe est requis" });
+    }
+
+    const passwordClean = req.body.password.trim();
+
+    const user = new User({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password.trim()
+    });
+    user.save()
+        .then(() => res.status(201).json({ message: 'Utilisateur créé' }))
+        .catch(error => res.status(400).json({ error }));
+};
+
+
+exports.login = (req, res, next) => {
+    
+    if (!req.body.email || !req.body.password) {
+        return res.status(400).json({ error: "Veuillez remplir tous les champs" });
+    }
+
+    const emailClean = req.body.email.trim();
+    const passwordClean = req.body.password.trim();
+
+    User.findOne({ email: emailClean })
+    .then(user => {
+        if (!user) {
+            return res.status(401).json({ error: 'Utilisateur non trouvé' });
         }
 
-        bcrypt.compare(req.body.password, user.password)
+        bcrypt.compare(passwordClean, user.password)
         .then(valid => {
-            if(!valid) {
-                return res.status(401).json({error : 'Mot de passe incorrect'});
+            if (!valid) {
+                return res.status(401).json({ error: 'Mot de passe incorrect' });
             }
 
-            return res.status(200).json ({
-                userId: user._id,
-            });
+            const token = jwt.sign(
+                { userId: user._id },
+                process.env.SECRET_KEY || 'CLE_PAR_DEFAUT',
+                { expiresIn: '24h' }
+            );
+
+            res.cookie('token', token, { httpOnly: true, secure: false });
+            return res.redirect('/catways'); 
         })
-        .catch(error => res.status(500).json ({ error }));
+        .catch(error => res.status(500).json({ error: "Erreur de comparaison" }));
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => res.status(500).json({ error: "Erreur serveur" }));
 };
+
+

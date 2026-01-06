@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
 
-
 const indexRouter = require('./routes/index');
 
 const mongodb = require('./db/mongo');
@@ -16,6 +15,7 @@ const path = require('path');
 mongodb.initClientDbConnection();
 
 const app = express();
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -31,11 +31,9 @@ app.use(cors({
   origin: '*'
 }));
 app.use(logger('dev'));
-app.use(cookieParser());
-
-app.use('/', indexRouter);
 
 app.use('/users', userRouter);
+app.use('/', indexRouter);
 app.use('/catways', catwayRouter);
 app.use('/reservations', reservationRouter);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
