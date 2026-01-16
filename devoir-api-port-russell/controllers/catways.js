@@ -2,17 +2,35 @@ const Catway = require('../models/catway');
 
 exports.add = async (req, res) => {
     try {
-        const catway = new Catway(req.body);
+        const lastCatway = await Catway.findOne().sort('-catwayNumber');
+
+        const nextNumber = lastCatway ? lastCatway.catwayNumber + 1 : 1;
+
+        const catwayData = {
+            ...req.body,
+            catwayNumber: nextNumber
+        };
+
+        const catway = new Catway(catwayData);
         await catway.save();
-        res.status(201).json({
-            message: "Catway créé avec succès !",
-            data: catway
+
+        res.redirect('/catways');
+    } catch (error) {
+        res.status(400).render('error', { message: error.message });
+    }
+};
+
+exports.getAddForm = async (req, res) => {
+    try {
+        
+        const user = req.user;
+
+        res.render('catways-add', { 
+            user: user,
+            title: "Ajouter un Catway"
         });
     } catch (error) {
-        res.status(400).json({ 
-            message: "Erreur lors de la création du catway", 
-            error: error.message 
-        });
+        res.redirect('/dashboard');
     }
 };
 

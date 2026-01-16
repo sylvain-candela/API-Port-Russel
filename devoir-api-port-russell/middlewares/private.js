@@ -17,6 +17,7 @@ exports.checkJWT = async (req, res, next) => {
                 
                 return res.status(401).json('token_not_valid');
             } else {
+                req.user = decoded.user || decoded;
                 req.decoded = decoded;
                 const expireIN = 24 * 60 * 60;
                 const newToken = jwt.sign(

@@ -22,13 +22,13 @@
             <% catways.forEach(catway => { %>
                 <tr>
                     <td><%= catway.catwayNumber %></td>
-                    <td><%= catway.type %></td>
+                    <td><%= catway.catwayType %></td>
                     <td><%= catway.catwayState %></td>
                     <td>
                         <a href="/catways/<%= catway._id %>">Voir</a>
                         
                         <form action="/catways/<%= catway._id %>?_method=DELETE" method="POST" style="display:inline;">
-                            <button type="submit" onclick="return confirm('Confirmer ?')">Supprimer</button>
+                            <button onclick="deleteCatway('<%= catway._id %>')">Supprimer</button>
                         </form>
                     </td>
                 </tr>

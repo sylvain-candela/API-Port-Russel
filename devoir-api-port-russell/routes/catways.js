@@ -6,10 +6,9 @@ const bulkCtrl = require('../controllers/bulk');
 
 router.get('/', private.checkJWT, catwayCtrl.getAllCatways);
 router.get('/:id', private.checkJWT, catwayCtrl.getOneCatway);
+router.get('/add', catwayCtrl.getAddForm);
 
-
-
-router.post('/', catwayCtrl.add);
+router.post('/add', catwayCtrl.add);
 router.post('/bulk/:type', bulkCtrl.bulkData);
 
 router.put('/:id', catwayCtrl.modifyCatway);

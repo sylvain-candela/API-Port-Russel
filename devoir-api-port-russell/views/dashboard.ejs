@@ -1,2 +1,64 @@
-<a href="/catways">catways</a>
-<a href="/reservations">Reservation</a>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord</title>
+</head>
+<body>
+    <nav>
+        <h2>Menu</h2>
+        <ul>
+            <li>page precedente</li>
+            <li>documentation API</li>
+            <li><a href="/catways">Gestion des Catways</a></li>
+            <li>Se déconnecter</li>
+        </ul>
+        <header>
+            <h1>Tableau de bord</h1>
+            <p>Date du jour : <%= today %> </p>
+        </header>
+        <section>
+           
+                <h2>Bienvenue <%= user.username %></h2>
+                <p>Email : <%= user.email %></p>
+            
+        </section>
+        <section>
+            <h2>Reservation en cours</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>N°Catway</th>
+                        <th>Client</th>
+                        <th>Bateau</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% reservations.forEach(res => { %>
+                        <tr>
+                            <td><%= res.catwayNumber %></td>
+                            <td><%= res.clientName %></td>
+                            <td><%= res.boatName %></td>
+                            <td><%= new Date(res.startDate).toLocaleDateString() %></td>
+                            <td><%= new Date(res.endDate).toLocaleDateString() %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </section>
+        <table>
+            <td>
+        
+            </td>
+        </table>
+    </nav>
+    <a href="/catways">catways</a>
+    <a href="/reservations">Reservation</a>
+    <a href="/users">Utilisateurs</a>
+</body>
+</html>
+
+

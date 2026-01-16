@@ -4,9 +4,12 @@ const userCtrl = require('../controllers/users');
 const private = require('../middlewares/private');
 const bulkCtrl = require('../controllers/bulk');
 
+
+router.get('/', private.checkJWT, userCtrl.getAllUsers);
 router.get('/signup', (req, res) => {
     res.render('signup'); 
 });
+router.get('/dashboard', private.checkJWT, userCtrl.getDashboard);
 
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);

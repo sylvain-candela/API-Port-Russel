@@ -1,0 +1,16 @@
+<form method="POST" action="/catways/add">
+    <fieldset class="container">
+        <legend>Créer un nouveau Catway</legend>
+        
+        <label for="type">Type de Catway</label>
+        <select name="type" id="type">
+            <option value="long">Long</option>
+            <option value="short">Short</option>
+        </select> <br><br>
+
+        <label for="catwayState">État du Catway</label>
+        <textarea name="catwayState" id="catwayState" placeholder="Ex: Bon état" required></textarea> <br><br>
+
+        <input type="submit" value="Enregistrer le Catway">
+    </fieldset>
+</form>

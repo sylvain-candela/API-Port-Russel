@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+const Reservation = require('../models/reservation')
 const jwt = require('jsonwebtoken');
 const SECRET_KEY = process.env.SECRET_KEY
 
@@ -20,6 +21,17 @@ exports.add = async (req, res) => {
             message: "Erreur lors de la création de l'utilisateur", 
             error: error.message 
         });
+    }
+};
+
+ 
+exports.getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find();
+        return res.render('users', { users: users });
+    } catch (error) {
+        console.error(error);
+        return res.status(400).send("Erreur lors du chargement des utilisateurs");
     }
 };
 
@@ -169,6 +181,31 @@ exports.login = (req, res, next) => {
         .catch(error => res.status(500).json({ error: "Erreur de comparaison" }));
     })
     .catch(error => res.status(500).json({ error: "Erreur serveur" }));
+};
+
+exports.getDashboard = async (req, res) => {
+    try {
+        const token = req.cookies.token;
+        if (!token) {
+            return res.redirect('/login');
+        }
+
+        const decodedToken = jwt.verify(token, process.env.SECRET_KEY || 'CLE_PAR_DEFAUT');
+        const userId = decodedToken.userId;
+
+        const user = await User.findById(userId);
+        const reservations = await Reservation.find();
+
+        res.render('dashboard', { 
+            user: user,
+            today: new Date().toLocaleDateString(),
+            reservations: reservations
+        });
+
+    } catch (error) {
+        res.clearCookie('token');
+        res.redirect('/login');
+    }
 };
 
 

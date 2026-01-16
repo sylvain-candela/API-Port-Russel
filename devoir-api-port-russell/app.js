@@ -2,6 +2,7 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
+const methodOverride = require('method-override');
 
 const indexRouter = require('./routes/index');
 
@@ -11,13 +12,14 @@ const catwayRouter = require('./routes/catways');
 const reservationRouter = require('./routes/reservations');
 
 const path = require('path');
+const app = express();
 
 mongodb.initClientDbConnection();
 
-const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -37,6 +39,7 @@ app.use('/catways', catwayRouter);
 app.use('/reservations', reservationRouter);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'assets')));
+app.use(express.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 
 // error handler
