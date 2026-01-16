@@ -9,7 +9,7 @@
 
     <a href="/catways/add" class="btn-add">Ajouter un Catway</a>
 
-    <table>
+    <table class="container-table">
         <thead>
             <tr>
                 <th>Numéro</th>
@@ -28,7 +28,7 @@
                         <a href="/catways/<%= catway._id %>">Voir</a>
                         
                         <form action="/catways/<%= catway._id %>?_method=DELETE" method="POST" style="display:inline;">
-                            <button type="submit" onclick="return confirm('Confirmer ?')"></button>
+                            <button type="submit" onclick="return confirm('Confirmer ?')">Supprimer</button>
                         </form>
                     </td>
                 </tr>

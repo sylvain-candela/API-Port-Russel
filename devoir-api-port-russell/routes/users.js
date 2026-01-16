@@ -14,12 +14,12 @@ router.post('/authenticate', userCtrl.authenticate);
 
 router.put('/add', userCtrl.add); 
 
-router.get('/:id', private.checkJWT, userCtrl.getById);
-router.patch('/:id', private.checkJWT, userCtrl.update);
-router.delete('/:id', private.checkJWT, userCtrl.delete);
 
 router.delete('/bulk/:type', private.checkJWT, bulkCtrl.bulkDelete);
 router.post('/bulk/:type', private.checkJWT, bulkCtrl.bulkData);
 
+router.get('/:id', private.checkJWT, userCtrl.getById);
+router.patch('/:id', private.checkJWT, userCtrl.update);
+router.delete('/:id', private.checkJWT, userCtrl.delete);
 
 module.exports = router;

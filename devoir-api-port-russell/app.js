@@ -33,11 +33,11 @@ app.use(cors({
 app.use(logger('dev'));
 
 app.use('/users', userRouter);
-app.use('/', indexRouter);
 app.use('/catways', catwayRouter);
 app.use('/reservations', reservationRouter);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'assets')));
+app.use('/', indexRouter);
 
 // error handler
 app.use(function(req, res, next) {

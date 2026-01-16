@@ -7,13 +7,15 @@ const bulkCtrl = require('../controllers/bulk');
 router.get('/', private.checkJWT, catwayCtrl.getAllCatways);
 router.get('/:id', private.checkJWT, catwayCtrl.getOneCatway);
 
+
+
 router.post('/', catwayCtrl.add);
 router.post('/bulk/:type', bulkCtrl.bulkData);
 
 router.put('/:id', catwayCtrl.modifyCatway);
 
-router.delete('/:id', private.checkJWT,catwayCtrl.deleteCatway);
 router.delete('/bulk/:type', bulkCtrl.bulkDelete);
+router.delete('/:id', private.checkJWT,catwayCtrl.deleteCatway);
 
 
 module.exports = router

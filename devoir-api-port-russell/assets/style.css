@@ -26,3 +26,13 @@ span{
     color: #7d91b6;
    
 }
+
+.container-table{
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+td{
+    border:  1px solid black;
+}
+

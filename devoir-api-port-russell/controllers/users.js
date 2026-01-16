@@ -164,7 +164,7 @@ exports.login = (req, res, next) => {
             );
 
             res.cookie('token', token, { httpOnly: true, secure: false });
-            return res.redirect('/catways'); 
+            return res.redirect('/dashboard'); 
         })
         .catch(error => res.status(500).json({ error: "Erreur de comparaison" }));
     })

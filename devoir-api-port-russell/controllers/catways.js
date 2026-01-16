@@ -18,7 +18,6 @@ exports.add = async (req, res) => {
 
 exports.getAllCatways = (req, res) => {
     Catway.find()
-        .then(catways => res.status(200).json(catways))
         .then(catways => {
             res.render('catways', { catways: catways });
         })

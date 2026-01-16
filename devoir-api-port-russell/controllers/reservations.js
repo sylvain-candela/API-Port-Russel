@@ -21,17 +21,23 @@ exports.add = async (req, res) => {
 
 exports.getAllReservations = (req, res) => {
     Reservation.find()
-        .then(reservations => res.status(200).json(reservations))
-        .catch(error => res.status(400).json({ error }));
+        .then(reservations => {
+            return res.render('reservations', { reservations: reservations });
+        })
+        .catch(error => {
+            console.error(error);
+            return res.status(400).send("Erreur lors du chargement des réservations");
+        });
 };
 
 exports.getByReservation = (req, res) => {
-    Reservation.find({ catwayNumber: req.params.id })
-        .then(reservations => res.status(200).json(reservations))
-        .catch(error => res.status(400).json({ error }));
-
     Reservation.findOne({ _id: req.params.id })
-        .then(reservation => res.status(200).json(reservation))
+        .then(reservation => {
+            if (!reservation) {
+                return res.status(404).json({ message: "Réservation non trouvée" });
+            }
+            return res.status(200).json(reservation);
+        })
         .catch(error => res.status(404).json({ error }));
 };
 

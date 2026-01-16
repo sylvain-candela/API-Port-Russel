@@ -4,7 +4,7 @@ const port = 3000
 
 app.get('/' ,(req,res) => {
     res.type( 'texte/plain' )
-    res.send('Serveur  Bienvenue sur mon serveur perso express')
+    res.send('Serveur  Bienvenue sur mon serveur API Port RUSSELL')
 })
 
 app.get('/about' ,(req,res) => {
