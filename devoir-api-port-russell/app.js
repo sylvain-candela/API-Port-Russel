@@ -45,6 +45,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/', indexRouter);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.get('/', (req, res) => {
+    res.send('<h1>Bienvenue sur l\'API Port Russell</h1><p>Le serveur fonctionne parfaitement !</p>');
+});
 
 // error handler
 app.use(function(req, res, next) {
