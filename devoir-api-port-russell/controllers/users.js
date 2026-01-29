@@ -54,8 +54,7 @@ exports.getById = async (req, res, next) => {
 exports.update = async (req,res, next) =>{
     const id = req.params.id
     const temp = ({
-        name : req.body.name,
-        firstname : req.body.firstname,
+        username : req.body.username,
         email :req.body.email,
         password :req.body.password
     });
@@ -71,6 +70,7 @@ exports.update = async (req,res, next) =>{
             });
 
             await user.save();
+            return res.redirect('/users');
             return res.status(201).json(user);
         }
         return res.status(404).json('user_not_found');
@@ -154,7 +154,7 @@ exports.login = (req, res, next) => {
         return res.status(400).json({ error: "Veuillez remplir tous les champs" });
     }
 
-    const emailClean = req.body.email.trim();
+    const emailClean = req.body.email.trim().toLowerCase();
     const passwordClean = req.body.password.trim();
 
     User.findOne({ email: emailClean })
@@ -183,11 +183,17 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(500).json({ error: "Erreur serveur" }));
 };
 
+exports.logout = (req, res) => {
+    res.clearCookie('token');
+    
+    res.redirect('/'); 
+};
+
 exports.getDashboard = async (req, res) => {
     try {
         const token = req.cookies.token;
         if (!token) {
-            return res.redirect('/login');
+            return res.redirect('/users-login');
         }
 
         const decodedToken = jwt.verify(token, process.env.SECRET_KEY || 'CLE_PAR_DEFAUT');
@@ -204,8 +210,17 @@ exports.getDashboard = async (req, res) => {
 
     } catch (error) {
         res.clearCookie('token');
-        res.redirect('/login');
+        res.redirect('/users-login');
     }
 };
 
-
+exports.renderEditForm = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) return res.status(404).send("Utilisateur non trouvé");
+        
+        res.render('users-edit', { user }); 
+    } catch (error) {
+        res.status(500).send("Erreur serveur");
+    }
+};

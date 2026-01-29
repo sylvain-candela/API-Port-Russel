@@ -3,6 +3,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
 const methodOverride = require('method-override');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
 
 const indexRouter = require('./routes/index');
 
@@ -41,6 +43,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.urlencoded({ extended: true }));
 app.use('/', indexRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // error handler
 app.use(function(req, res, next) {

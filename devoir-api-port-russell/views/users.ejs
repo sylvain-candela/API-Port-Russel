@@ -2,12 +2,16 @@
 <html>
 <head>
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="users.css">
     <title>Gestion des Utilisateurs</title>
 </head>
 <body>
-    <h1>Tableau de bord des Utilisateurs</h1>
-
-    <a href="/users/signup" class="btn-add">Ajouter un Utilisateurs</a>
+    <div class="user_container">
+        <h1>Tableau de bord des Utilisateurs</h1>
+    
+        <a href="/users/users-signup" class="user_add">Ajouter un Utilisateurs</a>
+    </div>
 
     <table class="container-table">
         <thead>
@@ -15,6 +19,7 @@
                 <th>Nom Utilisateur</th>
                 <th>Email</th>
                 <th>Mot de passe</th>
+                <th>Action</th>
                 
             </tr>
         </thead>
@@ -24,8 +29,10 @@
                     <td><%= user.username %></td>
                     <td><%= user.email %></td>
                     <td><%= user.password %></td>
-                    <td>
+                    <td class="button">
                         <a href="/users/<%= user._id %>">Voir</a>
+                        
+                        <a href="/users/users-edit/<%= user._id %>">Modifier</a>
                         
                         <form action="/users/<%= user._id %>?_method=DELETE" method="POST" style="display:inline;">
                             <button onclick="deleteUser('<%= user._id %>')">Supprimer</button>

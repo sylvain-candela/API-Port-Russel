@@ -1,4 +1,17 @@
-<form method="POST" action="/catways/add">
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/catways.css">
+    <link rel="stylesheet" href="/catways-add.css">
+    <link rel="stylesheet" href="/login.css">
+    <title>Enregistrer un Catway</title>
+</head>
+<body>
+    <form method="POST" action="/catways/catways-add">
     <fieldset class="container">
         <legend>Créer un nouveau Catway</legend>
         
@@ -11,6 +24,9 @@
         <label for="catwayState">État du Catway</label>
         <textarea name="catwayState" id="catwayState" placeholder="Ex: Bon état" required></textarea> <br><br>
 
-        <input type="submit" value="Enregistrer le Catway">
+        <input type="submit" value="Enregistrer le Catway" class="buttons">
     </fieldset>
 </form>
+    
+</body>
+</html>

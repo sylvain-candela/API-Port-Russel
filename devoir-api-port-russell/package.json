@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "env-cmd -f ./env/.env nodemon --inspect ./bin/www",
-    "dev": "env-cmd -f ./env/.env.dev nodemon ./bin.www",
+    "swagger": "node swagger.js",
+    "start": "node swagger.js && env-cmd -f ./env/.env nodemon --inspect ./bin/www",
+    "dev": "node swagger.js && env-cmd -f ./env/.env.dev nodemon ./bin.www",
     "prod": "env-cmd -f ./env/.env.prod nodemon ./bin.www"
   },
   "dependencies": {
@@ -15,15 +16,17 @@
     "ejs": "^3.1.10",
     "express": "^4.22.1",
     "http-errors": "~1.6.3",
-    "jade": "^1.9.2",
+    "jade": "^0.31.2",
     "jsonwebtoken": "^9.0.3",
     "method-override": "^3.0.0",
     "mongoose": "^9.1.1",
     "morgan": "^1.10.1",
     "multer": "^2.0.2",
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.1.11",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "env-cmd": "^11.0.0"
+    "env-cmd": "^11.0.0",
+    "swagger-autogen": "^2.23.7"
   }
 }

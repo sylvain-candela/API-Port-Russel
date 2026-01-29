@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/catways.css">
+    <link rel="stylesheet" href="/catways-add.css">
+    <link rel="stylesheet" href="/reservations-add.css">
+    <link rel="stylesheet" href="/login.css">
+    <title>Enregistrer une réservation</title>
+</head>
+<body>
+    <form method="POST" action="/reservations/reservations-add">
+    <fieldset class="container">
+        <legend>Créer une réservation</legend>
+        
+        <label for="clientName">Nom</label>
+        <input type="text" name="clientName" id="clientName" required> <br><br>
+
+        <label for="boatName">Nom du bateau</label>
+        <input type="text" name="boatName" id="boatName" required> <br><br>
+        
+        <label for="startDate">Début de la réservation</label>
+        <input type="date" name="startDate" id="startDate" required> <br><br>
+        
+        <label for="endDate">Fin de la réservation</label>
+        <input type="date" name="endDate" id="endDate" required> <br><br>
+
+        <input type="submit" value="Enregistrer le Catway" class="buttons">
+    </fieldset>
+</form>
+    
+</body>
+</html>

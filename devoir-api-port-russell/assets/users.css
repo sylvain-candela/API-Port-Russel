@@ -1,0 +1,10 @@
+.user_container, h1{
+    width: 1050px;
+}
+
+.user_add{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+}

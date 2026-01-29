@@ -1,23 +1,21 @@
-const express =require('express');
+const express = require('express');
 const router = express.Router();
 const catwayCtrl = require('../controllers/catways');
 const private = require('../middlewares/private');
 const bulkCtrl = require('../controllers/bulk');
 
 router.get('/', private.checkJWT, catwayCtrl.getAllCatways);
-router.get('/:id', private.checkJWT, catwayCtrl.getOneCatway);
-router.get('/add', catwayCtrl.getAddForm);
-
-router.post('/add', catwayCtrl.add);
+router.get('/catways-add', private.checkJWT, (req, res) => {
+    res.render('catways-add');
+});
+router.get('/catways-edit/:id', private.checkJWT, catwayCtrl.renderEditForm);
+router.post('/catways-add', catwayCtrl.add);
 router.post('/bulk/:type', bulkCtrl.bulkData);
-
+router.get('/:id', private.checkJWT, catwayCtrl.getOneCatway);
 router.put('/:id', catwayCtrl.modifyCatway);
 
+router.delete('/:id', private.checkJWT, catwayCtrl.deleteCatway);
+
 router.delete('/bulk/:type', bulkCtrl.bulkDelete);
-router.delete('/:id', private.checkJWT,catwayCtrl.deleteCatway);
 
-
-module.exports = router
-
-
-
+module.exports = router;

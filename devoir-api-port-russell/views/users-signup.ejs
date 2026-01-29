@@ -4,10 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/login.css">
+    <link rel="stylesheet" href="/catways.css">
     <title>Document</title>
 </head>
 <body>
-    <form method="POST" action="/users/signup">
+    <form method="POST" action="/users/users-signup">
         <fieldset class="container">
                 <legend>Inscription</legend><br>
             
@@ -19,8 +22,8 @@
     
             <label for="password">Mot de passe</label>
             <input type="password" name="password" id="password" required> <br><br>
-            <input type="submit" value="Créer un compte">
-            <a href="/">retour Accueil</a>
+            
+            <input type="submit" value="Créer un compte" class="buttons">
         </fieldset>
     </form>
     

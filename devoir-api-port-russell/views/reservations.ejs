@@ -1,42 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/catways.css">
+    <link rel="stylesheet" href="/catways-add.css">
+    <link rel="stylesheet" href="/reservations-add.css">
+    <link rel="stylesheet" href="/login.css">
     <title>Gestion des reservations</title>
 </head>
 <body>
-    <h1>Tableau de bord des reservations</h1>
+    <div class="container">
 
-    <a href="/reservations/add" class="btn-add">Ajouter une reservation</a>
+        <h1>Tableau de bord des Réservations</h1>
+        <div class="buttons">
+            <a href="/reservations/reservations-add" class="button">Ajouter une réservation</a>
+            <a href="/dashboard">retour au tableau de bord</a>
+        </div>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Numéro</th>
+                    <th>Nom</th>
+                    <th>Nom Bateau</th>
+                    <th>date de début</th>
+                    <th>date de fin</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% reservations.forEach(reservation => { %>
+                    <tr>
+                        <td><%= reservation.catwayNumber %></td>
+                        <td><%= reservation.clientName %></td>
+                        <td><%= reservation.boatName %></td>
+                        <td><%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %></td>
+                        <td><%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %></td>
+                        <td class="buttons">
+                            <a href="/reservations/<%= reservation._id %>">Voir</a>
 
-    <table class="container-table">
-        <thead>
-            <tr>
-                <th>Numéro</th>
-                <th>Nom</th>
-                <th>Nom Bateau</th>
-                <th>date de début</th>
-                <th>date de fin</th>
-            </tr>
-        </thead>
-        <tbody>
-        <% reservations.forEach(reservation => { %>
-        <tr>
-            <td><%= reservation.catwayNumber %></td>
-            <td><%= reservation.clientName %></td>
-            <td><%= reservation.boatName %></td>
-            <td><%= new Date(reservation.startDate).toLocaleDateString('fr-FR') %></td>
-            <td><%= new Date(reservation.endDate).toLocaleDateString('fr-FR') %></td>
-            <td>
-                <a href="/reservations/<%= reservation._id %>">Voir</a>
-                
-                <form action="/reservations/<%= reservation._id %>?_method=DELETE" method="POST" style="display:inline;">
-                    <button onclick="deleteReservation('<%= reservation._id %>')">Supprimer</button>
-                </form>
-            </td>
-        </tr>
-    <% }); %>
-</tbody>
-    </table>
+                            <a href="/reservations/reservations-edit/<%= reservation._id %>">Modifier</a> 
+                            
+                            <form action="/reservations/<%= reservation._id %>?_method=DELETE" method="POST" style="display:inline;">
+                                <button onclick="deleteReservation('<%= reservation._id %>')">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

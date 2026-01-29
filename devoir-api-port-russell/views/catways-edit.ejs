@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/catways.css">
+    <link rel="stylesheet" href="/catways-add.css">
+    <link rel="stylesheet" href="/login.css">
+    <title>Modifier le Catway</title>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="/catways">page precedente</a></li>
+                <li><a href="/api-docs">documentation API</a></li>
+                <li><a href="/dashboard">Tableau de bord</a></li>
+                <li><a href="/users/logout">Se déconnecter</a></li>
+            </ul>
+        </div>
+
+        <header class="container">
+            <h1>Modification du Catway n° <%= catway.catwayNumber %></h1>
+            <p>Type d'emplacement : <strong><%= catway.type %></strong></p>
+        </header>
+
+        <section class="container">
+            <h2>Détails techniques</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Interne</th>
+                        <th>Numéro</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= catway._id %></td>
+                        <td><%= catway.catwayNumber %></td>
+                        <td><%= catway.type %></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="container">
+            <h2>Modifier le descriptif / état</h2>
+            <form action="/catways/<%= catway._id %>?_method=PUT" method="POST">
+                <div>
+                    <label for="catwayState" style="display: block; margin-bottom: 5px;">État actuel du catway :</label>
+                    <textarea 
+                        name="catwayState" 
+                        id="catwayState"
+                        class="container" 
+                    ><%= catway.catwayState %></textarea>
+                </div>
+
+                <div>
+                    <input type="submit" value="Enregistrer les modifications">
+                    <a href="/catways">Annuler</a>
+                </div>
+            </form>
+        </section>
+    </nav>
+</body>
+</html>

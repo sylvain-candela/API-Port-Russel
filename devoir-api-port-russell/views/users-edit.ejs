@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dashboard.css">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/catways.css">
+    <link rel="stylesheet" href="/catways-add.css">
+    <link rel="stylesheet" href="/login.css">
+    <title>Modifier l'Utilisateur</title>
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="/users">page précédente</a></li>
+                <li><a href="/dashboard">Tableau de bord</a></li>
+                <li><a href="/users/logout">Se déconnecter</a></li>
+            </ul>
+        </div>
+
+        <header class="container">
+            <h1>Modifier le profil de <%= user.username %></h1>
+            <p>ID Utilisateur : <code><%= user._id %></code></p>
+        </header>
+
+        <section class="container">
+            <form action="/users/<%= user._id %>?_method=PUT" method="POST">
+                
+                <div class="container-table">
+                    <label for="username" style="display: block; margin-bottom: 5px;">Nom d'utilisateur (non modifiable) :</label>
+                    <input type="text" id="username" value="<%= user.username %>" disabled style="background-color: #f0f0f0;">
+                    <input type="hidden" name="username" value="<%= user.username %>">
+                </div>
+
+                <div class="container-table">
+                    <label for="email">Nouvelle adresse Email :</label>
+                    <input type="email" name="email" id="email" value="<%= user.email %>" required>
+                </div>
+
+                <div class="container-table">
+                    <label for="password">Nouveau Mot de passe :</label>
+                    <input type="password" name="password" id="password" placeholder="Laissez vide pour ne pas changer">
+                    <small>Note : Pour des raisons de sécurité, le mot de passe actuel n'est pas affiché.</small>
+                </div>
+
+                <div class="buttons">
+                    <input type="submit" value="Enregistrer les modifications">
+                    <a href="/users">Annuler</a>
+                </div>
+            </form>
+        </section>
+    </nav>
+</body>
+</html>

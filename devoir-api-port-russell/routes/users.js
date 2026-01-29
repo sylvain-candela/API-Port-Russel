@@ -6,16 +6,20 @@ const bulkCtrl = require('../controllers/bulk');
 
 
 router.get('/', private.checkJWT, userCtrl.getAllUsers);
-router.get('/signup', (req, res) => {
-    res.render('signup'); 
+router.get('/users-signup', (req, res) => {
+    res.render('users-signup'); 
 });
-router.get('/dashboard', private.checkJWT, userCtrl.getDashboard);
+router.get('/users-edit/:id', private.checkJWT, userCtrl.renderEditForm);
 
-router.post('/signup', userCtrl.signup);
-router.post('/login', userCtrl.login);
+router.get('/dashboard', private.checkJWT, userCtrl.getDashboard);
+router.get('/logout', userCtrl.logout);
+
+router.post('/users-signup', userCtrl.signup);
+router.post('/users-login', userCtrl.login);
 router.post('/authenticate', userCtrl.authenticate);
 
-router.put('/add', userCtrl.add); 
+router.put('/add', userCtrl.add);
+router.put('/:id', userCtrl.update);
 
 
 router.delete('/bulk/:type', private.checkJWT, bulkCtrl.bulkDelete);

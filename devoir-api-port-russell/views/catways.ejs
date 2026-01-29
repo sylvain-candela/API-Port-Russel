@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="/dashboard.css">
     <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/catways.css">
     <title>Gestion des Catways</title>
 </head>
 <body>
     <h1>Tableau de bord des Catways</h1>
-
-    <a href="/catways/add" class="btn-add">Ajouter un Catway</a>
+    <div class="buttons">
+        <a href="/catways/catways-add" class="add_catway">Ajouter un Catway</a>
+        <a href="/dashboard">retour au tableau de bord</a>
+    </div>
 
     <table class="container-table">
         <thead>
@@ -24,9 +28,11 @@
                     <td><%= catway.catwayNumber %></td>
                     <td><%= catway.catwayType %></td>
                     <td><%= catway.catwayState %></td>
-                    <td>
+                    <td class="button">
                         <a href="/catways/<%= catway._id %>">Voir</a>
-                        
+
+                        <a href="/catways/catways-edit/<%= catway._id %>">Modifier</a> 
+                                               
                         <form action="/catways/<%= catway._id %>?_method=DELETE" method="POST" style="display:inline;">
                             <button onclick="deleteCatway('<%= catway._id %>')">Supprimer</button>
                         </form>
